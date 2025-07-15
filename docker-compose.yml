@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: benefits-postgres
+    ports:
+      - "5050:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: new_employee_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  backend:
+    build: ./Backend
+    container_name: benefits-backend
+    ports:
+      - "3083:3083"
+    environment:
+      - DB_USER=postgres
+      - DB_PASSWORD=admin123
+      - DB_NAME=new_employee_db
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - PORT=3083
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+  frontend:
+    build: ./Frontend
+    container_name: benefits-frontend
+    ports:
+      - "9035:80"
+    networks:
+      - app-network
+
+  hr-page:
+    build: ./HR_page
+    container_name: benefits-hr
+    ports:
+      - "9036:80"
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+
