@@ -73,13 +73,13 @@ const upload = multer({
 app.use(cors({
   origin: [
     process.env.FRONTEND_URL,
-    "http://65.2.191.52:3083",
+    "http://43.205.235.218:3083",
     "http://127.0.0.1:5500",
-    "http://65.2.191.52:5500",
+    "http://43.205.235.218:5500",
     "http://127.0.0.1:5501",
     "http://127.0.0.1:5503",
-    "http://65.2.191.52:9035",
-    "http://65.2.191.52:9036",
+    "http://43.205.235.218:9035",
+    "http://43.205.235.218:9036",
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -239,7 +239,7 @@ app.get('/hr', (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server running on http://65.2.191.52:${port}`);
+  console.log(`Server running on http://43.205.235.218:${port}`);
 });
 
 process.on('SIGINT', () => {
